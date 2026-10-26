@@ -13,6 +13,24 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:17-alpine
+
+        env:
+          POSTGRES_DB: orders
+          POSTGRES_USER: orders
+          POSTGRES_PASSWORD: orders
+
+        ports:
+          - 5432:5432
+
+        options: >-
+          --health-cmd="pg_isready -U orders -d orders"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
