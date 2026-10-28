@@ -44,3 +44,6 @@ jobs:
 
       - name: Build and test
         run: ./mvnw clean test
+
+      - name: Build Docker image
+        run: docker build -t order-service:${{ github.sha }} .
